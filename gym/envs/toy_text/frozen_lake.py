@@ -32,12 +32,13 @@ MAPS = {
 }
 
 
-def generate_random_map(size=8, p=0.8):
+def generate_random_map(size=8, p=0.8, seed=100):
     """Generates a random valid map (one that has a path from start to goal)
     :param size: size of each side of the grid
     :param p: probability that a tile is frozen
     """
     valid = False
+    np.random(seed)
 
     # DFS to check that it's a valid path.
     def is_valid(res):
@@ -96,9 +97,9 @@ class FrozenLakeEnv(discrete.DiscreteEnv):
 
     metadata = {'render.modes': ['human', 'ansi']}
 
-    def __init__(self, desc=None, map_name="4x4",is_slippery=True, size=25, p=0.8):
+    def __init__(self, desc=None, map_name="4x4",is_slippery=True, size=25, p=0.8, seed=100):
         if desc is None and map_name is None:
-            desc, res = generate_random_map(size=size, p=p)
+            desc, res = generate_random_map(size=size, p=p, seed=seed)
             self.res = res
         elif desc is None:
             desc = MAPS[map_name]
