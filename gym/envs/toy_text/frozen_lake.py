@@ -65,7 +65,7 @@ def generate_random_map(size=8, p=0.8):
         res[0][0] = 'S'
         res[-1][-1] = 'G'
         valid = is_valid(res)
-    return ["".join(x) for x in res]
+    return [["".join(x) for x in res], res]
 
 
 class FrozenLakeEnv(discrete.DiscreteEnv):
@@ -96,9 +96,10 @@ class FrozenLakeEnv(discrete.DiscreteEnv):
 
     metadata = {'render.modes': ['human', 'ansi']}
 
-    def __init__(self, desc=None, map_name="4x4",is_slippery=True):
+    def __init__(self, desc=None, map_name="4x4",is_slippery=True, size=25):
         if desc is None and map_name is None:
-            desc = generate_random_map()
+            desc, res = generate_random_map(size=size)
+            self.res = res
         elif desc is None:
             desc = MAPS[map_name]
         self.desc = desc = np.asarray(desc,dtype='c')
