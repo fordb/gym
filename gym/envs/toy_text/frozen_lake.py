@@ -38,7 +38,7 @@ def generate_random_map(size=8, p=0.8, seed=100):
     :param p: probability that a tile is frozen
     """
     valid = False
-    np.random(seed)
+    np.random.seed(seed)
 
     # DFS to check that it's a valid path.
     def is_valid(res):
